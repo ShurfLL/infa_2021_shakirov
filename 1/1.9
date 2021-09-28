@@ -1,0 +1,20 @@
+import turtle
+import math
+turtle.shape('turtle')
+def mt(n, r):
+    turtle.penup()
+    turtle.forward(r)
+    turtle.pendown()
+    turtle.left(90+180.0/n)
+    for i in range(1, n+1):
+	    turtle.forward(2*r*math.sin(math.pi/n))
+	    turtle.left(360.0/n)
+    turtle.right(90+180.0/n)
+    turtle.penup()
+    turtle.backward(r)
+
+	
+r=15
+for i in range(3, 14):
+	r=r+15
+	mt(i, r)

@@ -1,0 +1,25 @@
+import turtle
+dict={}
+
+def risovalochka(number,dict,k,x,y):
+    turtle.penup()
+    turtle.goto(x+k*dict[number][0][0][0],y+k*dict[number][0][0][1])
+    turtle.pendown()
+    for i in dict[number]:
+        turtle.goto(x+k*i[0][0],y+k*i[0][1])
+        turtle.goto(x+k*i[1][0],y+k*i[1][1])
+x=0
+y=0
+k=50
+str="141700"
+with open('dict') as file:
+    for linen in file:
+        line=linen.rstrip()
+        dict.update(eval(line))
+for number in str:
+    risovalochka(int(number),dict,k,x,y)
+    x+=2*k
+
+        
+
+

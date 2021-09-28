@@ -1,0 +1,20 @@
+import turtle
+dt=0.25
+g=-9.8
+vx=20
+vy=80
+x=-600
+y=0
+turtle.penup()
+turtle.goto(x,y)
+turtle.pendown()
+k=0.8
+turtle.speed(10)
+for i in range (1,1000):
+    x += vx*dt
+    y += vy*dt + g*dt**2/2
+    vy += g*dt
+    if y<0:
+        vy*=-k
+    turtle.goto(x,y)
+    

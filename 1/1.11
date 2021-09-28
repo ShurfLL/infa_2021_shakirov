@@ -1,0 +1,15 @@
+import turtle
+import math
+turtle.tracer(2)
+def circle(r):
+    for i in range (1,361):
+        turtle.forward(2*math.pi*r/360)
+        turtle.left(1)
+r=15
+turtle.left(90)
+for i in range (1,30):
+    circle(r)
+    turtle.right(180)
+    circle(r)
+    turtle.right(180)
+    r=r+5

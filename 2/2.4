@@ -1,0 +1,33 @@
+from random import randint
+import turtle
+a=400
+number_of_dots = 40
+steps_of_time_number = 1000
+turtle.penup()
+turtle.goto(-a,-a)
+turtle.pendown()
+turtle.goto(-a,a)
+turtle.goto(a,a)
+turtle.goto(a,-a)
+turtle.goto(-a,-a)
+sosud = [turtle.Turtle(shape='circle') for i in range(number_of_dots)]
+for unit in sosud:
+    unit.penup()
+    turtle.tracer(2)
+    unit.goto(randint(-a, a), randint(-a, a))
+    unit.left(randint(0,360))
+
+
+for i in range(steps_of_time_number):
+    for unit in sosud:
+        unit.forward(1)
+        if unit.xcor()>=a or unit.xcor()<=-a:
+            unit.backward(2)
+            alpha=unit.heading()
+            unit.seth(180-alpha)
+        elif unit.ycor()>=a or unit.ycor()<=-a:
+            unit.backward(2)
+            alpha=unit.heading()
+            unit.seth(-alpha)
+            
+        
