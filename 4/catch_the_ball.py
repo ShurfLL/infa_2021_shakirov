@@ -3,7 +3,7 @@ import random
 
 
 FPS = 90
-X_BORDER = 800
+X_BORDER = 1600
 Y_BORDER = 800
 screen = pygame.display.set_mode((X_BORDER, Y_BORDER))
 WHITE = (255, 255, 255)
@@ -19,8 +19,8 @@ count = 0
 NUMBERS_OF_BALLS = 10
 '''массив массивов, содержащих инфу о шарах в след. виде: [положение х, положение у,
    радиус, цвет(индекс в массиве выше), скорость х, скорость у]'''
-BALLS_INFO = [[random.randint(50, 750), random.randint(50, 750), random.randint(10, 50),
-               random.randint(0, 5), random.randint(1, 5), random.randint(1, 5)] for i in range(0, NUMBERS_OF_BALLS)]
+BALLS_INFO = [[random.randint(X_BORDER/16, X_BORDER-X_BORDER/16), random.randint(Y_BORDER/16, Y_BORDER-Y_BORDER/16), random.randint(X_BORDER/80, X_BORDER/16),
+               random.randint(0, 5), random.randint(X_BORDER/800, X_BORDER/160), random.randint(Y_BORDER/800, Y_BORDER/160)] for i in range(0, NUMBERS_OF_BALLS)]
 pygame.font.init()
 
 
@@ -57,15 +57,26 @@ def click_ball(ball_info, event):
     if((ball_info[0]-event.pos[0])**2 + (ball_info[1]-event.pos[1])**2 <= ball_info[2]**2):
         global count
         count += 1
-        
+    return (ball_info[0]-event.pos[0])**2 + (ball_info[1]-event.pos[1])**2 <= ball_info[2]**2
+
 
 def show_number_of_points(points):
     '''отрисовывает счет игрока на экране'''
     font = pygame.font.Font(None, 36)
     number_of_points = 'points: '
-    number_of_points+=str(points)
-    text1 = font.render(number_of_points, True,'red')
+    number_of_points += str(points)
+    text1 = font.render(number_of_points, True, 'red')
     screen.blit(text1, (0, 0))
+
+
+def make_new_ball(ball_info):
+    '''меняет характеристики шара на новые рандомные'''
+    ball_info[0] = random.randint(50, 750)
+    ball_info[1] = random.randint(50, 750)
+    ball_info[2] = random.randint(10, 50)
+    ball_info[3] = random.randint(0, 5)
+    ball_info[4] = random.randint(1, 5)
+    ball_info[5] = random.randint(1, 5)
 
 
 pygame.display.update()
@@ -80,7 +91,8 @@ while not finished:
             finished = True
         elif event.type == pygame.MOUSEBUTTONDOWN:
             for ball_info in BALLS_INFO:
-                click_ball(ball_info, event)
+                if click_ball(ball_info, event):
+                    make_new_ball(ball_info)
 
     for ball_info in BALLS_INFO:
         move_ball(ball_info)
